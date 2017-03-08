@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Random Office Episode</title>
+	<script type="text/javascript">
+
+	var episodeData;
+
+	var oReq = new XMLHttpRequest();
+	oReq.onload = reqListener;
+	oReq.open("get", "episodes.json", true);
+	oReq.send();
+
+	function reqListener(e) {
+		episodeData = JSON.parse(this.responseText);
+	}
+
+	function randomEpisode() {
+	var episode = episodeData["episodes"][Math.floor(Math.random() * episodeData["episodes"].length)];
+	document.getElementById("episode").innerHTML = episode;
+	}
+	window.onload = randomEpisode;
+	</script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">Random Office Episode</h1>
+        <p><button class="btn btn-lg btn-success" onclick="randomEpisode()">Random Episode</button></p>
+		<p id="episode"></p>
+      </div>
+    </div>
+  </body>
+</html>
