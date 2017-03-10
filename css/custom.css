@@ -12,6 +12,21 @@ body {
   padding-left: 15px;
 }
 
+/*Season Selection */
+#seasonSelect {
+    text-align: center;
+}
+#seasonSelect > button {
+    margin-bottom: 5px;
+}
+#seasonSelect > table {
+    margin-left: auto;
+    margin-right: auto;
+}
+div.checkbox {
+    margin-left: 5px;
+}
+
 /* Custom page header */
 .header {
   padding-bottom: 20px;
@@ -48,7 +63,7 @@ body {
   padding-bottom: 24px;
   padding-top: 24px;
 }
-.jumbotron .btn {
+.jumbotron .btn-lg {
   padding: 14px 24px;
   font-size: 21px;
 }
@@ -82,3 +97,5 @@ body {
     border-bottom: 0;
   }
 }
+
+

@@ -1,44 +1,174 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-
-    <title>Random Office Episode</title>
-	<script type="text/javascript">
-
-	var episodeData;
-
-	var oReq = new XMLHttpRequest();
-	oReq.onload = reqListener;
-	oReq.open("get", "episodes.json", true);
-	oReq.send();
-
-	function reqListener(e) {
-		episodeData = JSON.parse(this.responseText);
-	}
-
-	function randomEpisode() {
-	var episode = episodeData["episodes"][Math.floor(Math.random() * episodeData["episodes"].length)];
-	document.getElementById("episode").innerHTML = episode;
-	}
-	window.onload = randomEpisode;
-	</script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <div class="container">
-      <div class="jumbotron">
-        <h1 class="display-4">Random Office Episode</h1>
-        <p><button class="btn btn-lg btn-success" onclick="randomEpisode()">Random Episode</button></p>
-		<p id="episode"></p>
-      </div>
-    </div>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="favicon.ico">
+        <title>Random Office Episode</title>
+        <script type="text/javascript">
+            var checkBoxes = ["check-season1", "check-season2", "check-season3", "check-season4", "check-season5", 
+                                "check-season6", "check-season7", "check-season8", "check-season9"]
+            var episodeData;
+            
+            var oReq = new XMLHttpRequest();
+            oReq.onload = reqListener;
+            oReq.open("get", "episodes.json", true);
+            oReq.send();
+            
+            function reqListener(e) {
+                episodeData = JSON.parse(this.responseText);
+            }
+            
+            function randomEpisode() {
+                var selectedSeasons = [];
+                for (var i = 0, len = checkBoxes.length; i < len; i++) {
+                    if (document.getElementById(checkBoxes[i]).checked) {
+                        selectedSeasons.push((i+1).toString());
+                    }
+                }
+                if (selectedSeasons.length == 0) {
+                    selectAll();
+                    for (var i = 0; i < 9; i++) {
+                        selectedSeasons.push((i+1).toString());
+                    }
+                }
+                var randomSeason = selectedSeasons[Math.floor(Math.random() * selectedSeasons.length)];
+                var episode = episodeData[randomSeason][Math.floor(Math.random() * episodeData[randomSeason].length)];
+                document.getElementById("episode").innerHTML = episode;
+            }
+            function selectAll() {
+                for (var i = 0, len = checkBoxes.length; i < len; i++) {
+                    document.getElementById(checkBoxes[i]).checked = true;
+                }
+            }
+            function selectNone() {
+                for (var i = 0, len = checkBoxes.length; i < len; i++) {
+                    document.getElementById(checkBoxes[i]).checked = false;
+                }
+            }
+            function selectMichael() {
+                for (var i = 0; i < 7; i++) {
+                    document.getElementById(checkBoxes[i]).checked = true;
+                }
+                for (var i = 7; i < 9; i++) {
+                    document.getElementById(checkBoxes[i]).checked = false;
+                }
+            }
+            function selectNoMichael() {
+                for (var i = 0; i < 7; i++) {
+                    document.getElementById(checkBoxes[i]).checked = false;
+                }
+                for (var i = 7; i < 9; i++) {
+                    document.getElementById(checkBoxes[i]).checked = true;
+                }
+            }
+            window.onload = randomEpisode;
+        </script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4">Random Office Episode</h1>
+                <p id="episode"></p>
+                <p><button class="btn btn-lg btn-success" onclick="randomEpisode()">Random Episode</button></p>
+                <div class="container" id="seasonSelect">  
+                    <button type="button" class="btn btn-primary" onclick="selectAll()">All</button>
+                    <button type="button" class="btn btn-primary" onclick="selectNone()">None</button><br>
+                    <button type="button" class="btn btn-primary" onclick="selectMichael()">Michael</button>
+                    <button type="button" class="btn btn-primary" onclick="selectNoMichael()">No Michael</button>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season1" value="">
+                                    Season 1
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season6" value="">
+                                    Season 6
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season2" value="">
+                                    Season 2
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season7" value="">
+                                    Season 7
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season3" value="">
+                                    Season 3
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season8" value="">
+                                    Season 8
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season4" value="">
+                                    Season 4
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season9" value="">
+                                    Season 9
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                    <input type="checkbox" id="check-season5" value="">
+                                    Season 5
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+
